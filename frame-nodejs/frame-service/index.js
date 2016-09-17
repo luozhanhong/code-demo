@@ -1,5 +1,5 @@
 // service工程入口
-import logger from CoreDir+"/core/util/logUtil";
+import logger from '../frame-core/core/util/logUtil';
 const LOGGER = logger.getLogger(module.filename);
 global.ServiceDir = __dirname;
 

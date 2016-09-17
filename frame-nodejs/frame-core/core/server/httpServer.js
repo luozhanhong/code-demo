@@ -5,7 +5,6 @@ import express from "express";
 import session from "express-session";
 import bodyParser from "body-parser";
 let LOGGER = logger.getLogger(module.filename);
-
 let app = express();
 
 // 支持bodyParser
@@ -21,7 +20,7 @@ try {
 // 加载拦截器(自动加载系统默认的拦截器和应用程序自定义的拦截器)
 // 如果应用程序有config.js文件，filer字段是数组，则按照该文件的顺序加载拦截器
 try {
-	let filterConfig = require(AppDir + '/config.js').filer;
+	let filterConfig = projectConfig.filer;
 	let systemFiltersPath = CoreDir + '/filter/';
 	filterConfig.forEach(function (item) {
 		let filter = require(systemFiltersPath + item);
@@ -60,7 +59,7 @@ module.exports.start = function (port, route) {
 
 				req.params['ip'] = req.header("X-Real-IP");
 				var jsonParam = JSON.stringify(req.params);
-				if (properties['system.env'] === 'dev') {
+				if (projectConfig.system.env === 'dev') {
 					LOGGER.info('url: %s, param(%s): %s', k_url, filesystem.getSize(jsonParam.length), jsonParam);
 				}
 
@@ -93,7 +92,7 @@ module.exports.start = function (port, route) {
 				return;
 			}
 			var jsonReturn = JSON.stringify(json);
-			if (properties['system.env'] === 'product') {
+			if (projectConfig.system.env === 'product') {
 				LOGGER.warn('method: %s, url: %s, exec: %s', req.method, k_url, t);
 			} else {
 				LOGGER.info('method: %s, url: %s, exec: %s, send data(%s): %s', req.method, k_url, t, filesystem.getSize(jsonReturn.length), jsonReturn);
@@ -116,5 +115,5 @@ module.exports.start = function (port, route) {
 	// 屏蔽一些服务器参数
 	app.disable('x-powered-by');
 	app.disable('etag');
-	LOGGER.warn('http server %s start success, bind port %s ...', properties["project.name"], port);
+	LOGGER.warn('http server %s start success, bind port %s ...', projectConfig.projectName, port);
 };

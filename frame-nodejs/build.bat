@@ -12,4 +12,5 @@ for /f "tokens=*" %%a in ('dir /b') do (
 
 :npm部署
 rd /s /q %DIR%\node_modules
-npm install && del /f /q %DIR%\package.json
+npm install && pause
+:npm install && del /f /q %DIR%\package.json && pause

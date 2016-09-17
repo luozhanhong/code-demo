@@ -1,6 +1,6 @@
 // dao工程入口
 global.DaoDir = __dirname;
-import logger from CoreDir+"/core/util/logUtil";
+import logger from '../frame-core/core/util/logUtil';
 const LOGGER = logger.getLogger(module.filename);
 
 module.exports = async function () {

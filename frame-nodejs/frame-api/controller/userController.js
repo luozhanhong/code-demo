@@ -14,7 +14,7 @@ module.exports = {
 		// white: whiteListItem.noSign,
 		method: "get",
 		func: async function (req, res) {
-			let user = new DUser()
+			let user = new DUser();
 			return user;
 		}
 	}

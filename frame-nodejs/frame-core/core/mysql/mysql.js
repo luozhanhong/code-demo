@@ -194,7 +194,7 @@ module.exports = function (config) {
 				var args = [];
 				var clazz = t.getClass();
 				var table = classNameToTableName(clazz);
-				var columnMap = NumKey.tableColumnMap[table];
+				// var columnMap = NumKey.tableColumnMap[table];
 				var sql = "update `" + table + "` set ";
 				_.forEach(t, function (value, k_field) {
 					if (_.isFunction(t[k_field])) {
@@ -205,9 +205,11 @@ module.exports = function (config) {
 					}
 					var column = fieldNameToColumnName(k_field);
 					//忽略的统计字段
+					/*
 					if (!_.isUndefined(columnMap) && !_.isUndefined(columnMap[column])) {
 						return;
 					}
+					*/
 					sql = sql + '`' + column + '`=?,';
 					// 数组类型自动转成JSONString
 					if (_.isObjectLike(value)) {
