@@ -1,0 +1,19 @@
+{
+  "main": "start.js",
+  "scripts": {
+    "thinkjsVersion": "thinkjs --version",
+    "newProject": "thinkjs new ./"
+  },
+  "keywords": [
+    "nodejs",
+    "thinkjs"
+  ],
+  "author": "frame",
+  "license": "MIT",
+  "dependencies": {
+    "babel-preset-es2017": "^6.16.0",
+    "lodash": "^4.16.6",
+    "thinkjs": "2.2.x"
+  },
+  "devDependencies": {}
+}
