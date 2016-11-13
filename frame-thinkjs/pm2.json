@@ -1,8 +1,8 @@
 {
   "apps": [{
-    "name": "F:codecodeDemoframe-thinkjsF:codecodeDemoframe-thinkjs",
+    "name": "F:codecode-demoframe-thinkjsF:codecode-demoframe-thinkjs",
     "script": "www/production.js",
-    "cwd": "F:\code\codeDemo\frame-thinkjs",
+    "cwd": "F:\code\code-demo\frame-thinkjs",
     "exec_mode": "cluster",
     "instances": 0,
     "max_memory_restart": "1G",

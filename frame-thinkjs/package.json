@@ -1,6 +1,7 @@
 {
   "main": "start.js",
   "scripts": {
+    "start": "node www/development.js",
     "thinkjsVersion": "thinkjs --version",
     "newProject": "thinkjs new ./"
   },
