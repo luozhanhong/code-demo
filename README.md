@@ -1,4 +1,3 @@
-# code-demo
 ```sequence
 App->Oder: 预下单
 App->Oder: 下单
