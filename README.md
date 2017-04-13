@@ -1,6 +1,6 @@
-```sequence
-Title:下单支付
-App->Oder: 预下单
-App->Oder: 下单
-Order->Pay: getPay获取支付信息
-```
+
+snakeCase = function (str) {
+  return str.replace(/([^A-Z])([A-Z])/g, function ($0, $1, $2) {
+    return $1 + '_' + $2.toLowerCase();
+  });
+};
