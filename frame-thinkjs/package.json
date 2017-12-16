@@ -1,20 +1,36 @@
 {
-  "main": "start.js",
+  "name": "frame-thinkjs",
+  "description": "application created by thinkjs",
+  "version": "1.0.0",
+  "author": "test",
   "scripts": {
-    "start": "node www/development.js",
-    "thinkjsVersion": "thinkjs --version",
-    "newProject": "thinkjs new ./"
+    "start": "node development.js",
+    "lint": "eslint src/",
+    "lint-fix": "eslint --fix src/"
   },
-  "keywords": [
-    "nodejs",
-    "thinkjs"
-  ],
-  "author": "frame",
-  "license": "MIT",
   "dependencies": {
-    "babel-preset-es2017": "^6.16.0",
-    "lodash": "^4.16.6",
-    "thinkjs": "2.2.x"
+    "think-cache": "^1.0.0",
+    "think-session": "^1.0.0",
+    "think-cache-file": "^1.0.8",
+    "think-model": "^1.0.0",
+    "think-session-file": "^1.0.5",
+    "think-view": "^1.0.0",
+    "think-view-nunjucks": "^1.0.1",
+    "think-model-mysql": "^1.0.0",
+    "think-logger3": "^1.0.0",
+    "thinkjs": "^3.0.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "think-watcher": "^3.0.0",
+    "eslint": "^4.2.0",
+    "eslint-config-think": "^1.0.0",
+    "ava": "^0.18.0",
+    "nyc": "^7.0.0"
+  },
+  "repository": "",
+  "license": "MIT",
+  "engines": {
+    "node": ">=6.0.0"
+  },
+  "readmeFilename": "README.md"
 }
