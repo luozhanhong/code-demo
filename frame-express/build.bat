@@ -3,7 +3,7 @@
 set DIR=%cd%
 cd %DIR%
 :先备份core工程的package.json
-xcopy %DIR%\frame-core\package.json %DIR%\ /y
+xcopy %DIR%\core\package.json %DIR%\ /y
 
 :删除所有老文件
 for /f "tokens=*" %%a in ('dir /b') do (
