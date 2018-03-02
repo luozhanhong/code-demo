@@ -2,35 +2,47 @@
   "name": "frame-thinkjs",
   "description": "application created by thinkjs",
   "version": "1.0.0",
-  "author": "test",
+  "author": "saa",
   "scripts": {
     "start": "node development.js",
     "lint": "eslint src/",
     "lint-fix": "eslint --fix src/"
   },
   "dependencies": {
-    "think-cache": "^1.0.0",
+    "think-cache": "^1.1.0",
+    "think-cache-file": "^1.1.0",
+    "think-logger3": "^1.0.0",
+    "think-model": "^1.1.11",
+    "think-model-mysql": "^1.0.0",
     "think-session": "^1.0.0",
-    "think-cache-file": "^1.0.8",
-    "think-model": "^1.0.0",
     "think-session-file": "^1.0.5",
     "think-view": "^1.0.0",
     "think-view-nunjucks": "^1.0.1",
-    "think-model-mysql": "^1.0.0",
-    "think-logger3": "^1.0.0",
-    "thinkjs": "^3.0.0"
+    "thinkjs": "^3.2.7"
   },
   "devDependencies": {
-    "think-watcher": "^3.0.0",
-    "eslint": "^4.2.0",
-    "eslint-config-think": "^1.0.0",
     "ava": "^0.18.0",
-    "nyc": "^7.0.0"
+    "eslint": "^4.18.1",
+    "eslint-config-think": "^1.0.0",
+    "nyc": "^7.0.0",
+    "think-watcher": "^3.0.0"
   },
   "repository": "",
   "license": "MIT",
   "engines": {
     "node": ">=6.0.0"
   },
-  "readmeFilename": "README.md"
+  "readmeFilename": "README.md",
+  "thinkjs": {
+    "metadata": {
+      "name": "frame-thinkjs",
+      "description": "application created by thinkjs",
+      "author": "saa",
+      "babel": false
+    },
+    "projectName": "frame-thinkjs",
+    "cacheTemplatePath": "/Users/saa/.think-templates/-usr-local-lib-node_modules-think-cli-default_template",
+    "clone": false,
+    "isMultiModule": false
+  }
 }

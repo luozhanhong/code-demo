@@ -1,0 +1,12 @@
+{
+  "name": "frame-koa",
+  "description": "application created by koa",
+  "version": "1.0.0",
+  "author": "saa",
+  "license": "MIT",
+  "scripts": {},
+  "dependencies": {
+    "koa": "^2.5.0",
+    "koa-router": "^7.4.0"
+  }
+}
