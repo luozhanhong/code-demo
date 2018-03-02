@@ -1,4 +1,4 @@
-var Key = function (redisKey, sqlKey, dbService) {
+let Key = function (redisKey, sqlKey, dbService) {
 	if (!_.isString(sqlKey) || sqlKey.trim() == "") {
 		sqlKey = "id";
 	}

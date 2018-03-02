@@ -1,6 +1,6 @@
 // protocol工程入口
 global.ProtocolDir = __dirname;
-import logger from '../frame-core/core/util/logUtil';
+const logger = require('../core/core/util/logUtil');
 const LOGGER = logger.getLogger(module.filename);
 
 module.exports = async function () {

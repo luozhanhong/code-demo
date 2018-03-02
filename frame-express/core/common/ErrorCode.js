@@ -3,7 +3,7 @@
 // a：固定编号
 // b：模块编号
 // c：错误编号
-var errorCode = function (errorCode, errorMessage) {
+let errorCode = function (errorCode, errorMessage) {
 	return {
 		errorCode: errorCode,
 		errorMessage: errorMessage

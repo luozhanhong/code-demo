@@ -19,25 +19,25 @@ module.exports = {
 			return new Map();
 		}
 		let t = new T();
-		var clazz = t.getClass();
+		let clazz = t.getClass();
 		if (!Key[clazz]) {
 			throw new Error("commonService.multiGetT Key is not find, clazz : " + clazz);
 		}
 		// 用哪个数据库的dbService
-		var dbService = Key[clazz].dbService;
+		let dbService = Key[clazz].dbService;
 		// 获取redisKey
-		var redisKey = Key[clazz].redisKey;
+		let redisKey = Key[clazz].redisKey;
 		// 获取sqlKey
-		var sqlKey = Key[clazz].sqlKey;
+		let sqlKey = Key[clazz].sqlKey;
 
 		// 首先去缓存拿
-		var data = new Map();
-		var redisKeyList = [];
+		let data = new Map();
+		let redisKeyList = [];
 		idSet.forEach(function (id) {
 			redisKeyList.push(redisKey + id);
 			data.set(_.toNumber(id), null);
 		});
-		var byteList = await redis.STRINGS.mget(redisKeyList);
+		let byteList = await redis.STRINGS.mget(redisKeyList);
 
 		// 判断哪些缓存是有的，哪些是缓存没有的
 		if (byteList.length > 0) {
@@ -51,7 +51,7 @@ module.exports = {
 		}
 
 		// 找出缓存没有的
-		var tmpUserIdSet = new Set();
+		let tmpUserIdSet = new Set();
 		data.forEach(function (v, k) {
 			if (!v) {
 				tmpUserIdSet.add(k);
@@ -62,14 +62,14 @@ module.exports = {
 		}
 
 		// 缓存丢失的，去数据库查找
-		var tList = await dbService.multiGetT(tmpUserIdSet, T, sqlKey);
+		let tList = await dbService.multiGetT(tmpUserIdSet, T, sqlKey);
 		if (tList.length == 0) {
 			// 如果数据库都没有，那就直接返回
 			return data;
 		}
 
 		// 如果数据库查到就回写到缓存
-		var keysValuesMap = new Map();
+		let keysValuesMap = new Map();
 		tList.forEach(function (t) {
 			if (_.isString(t[sqlKey]) && t[sqlKey].trim() == "") {
 				LOGGER.error(clazz + "." + sqlKey + "  is ''");
@@ -100,13 +100,13 @@ module.exports = {
 		if (!_.isNumber(id) || !id) {
 			throw new Error("id is undefined or NaN");
 		}
-		var countStr = await redis.STRINGS.get(numKey.getKey(id));
+		let countStr = await redis.STRINGS.get(numKey.getKey(id));
 		if (countStr != null) {
 			return _.toNumber(countStr);
 		}
-		var count = 0;
-		var sql = "SELECT `" + numKey.column + "` FROM `" + numKey.table + "` WHERE `" + numKey.pk + "`=?";
-		var list = await guSlaveDbService.query(sql, id);
+		let count = 0;
+		let sql = "SELECT `" + numKey.column + "` FROM `" + numKey.table + "` WHERE `" + numKey.pk + "`=?";
+		let list = await guSlaveDbService.query(sql, id);
 		if (_.size(list) > 0) {
 			count = list[0][numKey.column];
 		}
@@ -127,8 +127,8 @@ module.exports = {
 			return -1;
 		}
 		await this.getNumColumn(numKey, id);
-		var sql = "UPDATE `" + numKey.table + "` SET `" + numKey.column + "`=`" + numKey.column + "`+? WHERE `" + numKey.pk + "`=?";
-		var boolean = await guSlaveDbService.update(sql, num, id);
+		let sql = "UPDATE `" + numKey.table + "` SET `" + numKey.column + "`=`" + numKey.column + "`+? WHERE `" + numKey.pk + "`=?";
+		let boolean = await guSlaveDbService.update(sql, num, id);
 		if (boolean) {
 			return redis.STRINGS.incrbyfloat(numKey.getKey(id), num);
 		}
@@ -148,8 +148,8 @@ module.exports = {
 			return -1;
 		}
 		await this.getNumColumn(numKey, id);
-		var sql = "UPDATE `" + numKey.table + "` SET `" + numKey.column + "`=? WHERE `" + numKey.pk + "`=?";
-		var boolean = await guSlaveDbService.update(sql, num, id);
+		let sql = "UPDATE `" + numKey.table + "` SET `" + numKey.column + "`=? WHERE `" + numKey.pk + "`=?";
+		let boolean = await guSlaveDbService.update(sql, num, id);
 		if (boolean) {
 			return redis.STRINGS.set(numKey.getKey(id), num);
 		}
@@ -184,8 +184,8 @@ module.exports = {
 		}
 
 		// 组成key
-		var keyList = [];
-		var data = new Map();
+		let keyList = [];
+		let data = new Map();
 		idSet.forEach(function (id) {
 			numKeys.forEach(function (numKey) {
 				let numKeyMap = data.get(_.toNumber(id));
@@ -198,12 +198,12 @@ module.exports = {
 			});
 		});
 
-		var jsonStringList = await redis.STRINGS.mget(keyList);
+		let jsonStringList = await redis.STRINGS.mget(keyList);
 		// 找出缓存没有的id
-		var tmpIdSet = new Set();
+		let tmpIdSet = new Set();
 		// 判断哪些缓存是有的，哪些是缓存没有的
 		if (jsonStringList.length > 0) {
-			var i = 0;
+			let i = 0;
 			data.forEach(function (v_numKeyMap, k_id) {
 				v_numKeyMap.forEach(function (v, k_numKey) {
 					let jsonString = jsonStringList[i];

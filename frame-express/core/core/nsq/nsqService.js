@@ -10,7 +10,7 @@ module.exports = {
 		if (!topic || !message) {
 			throw new Error("topic or message is Error!");
 		}
-		var queue = nsq({
+		let queue = nsq({
 			nsqd: [properties['nsq.nsqd'] + ':4150']
 		});
 		try {

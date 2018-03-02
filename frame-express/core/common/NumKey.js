@@ -8,7 +8,7 @@ function NumKey(table, column, key, pk, seconds) {
 		return this.key + id;
 	}
 }
-var timeUtil = require("../core/util/timeUtil");
+let timeUtil = require("../core/util/timeUtil");
 module.exports = {
 	/**
 	 * 创意点赞数

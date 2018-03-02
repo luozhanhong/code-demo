@@ -1,9 +1,9 @@
-var nsq = require('nsq.js');
-var events = require('events');
-var xtend = require('xtend');
-var once = require('once');
+const nsq = require('nsq.js');
+const events = require('events');
+const xtend = require('xtend');
+const once = require('once');
 
-var create = function(opts) {
+let create = function(opts) {
 	if (!opts) opts = {};
 	if (!opts.channel) opts.channel = opts.service || '-global-';
 	if (!opts.requeue) opts.requeue = 5000;
@@ -12,19 +12,19 @@ var create = function(opts) {
 	opts.namespace = opts.namespace ? '-'+opts.namespace+'-' : '';
 	opts.broadcast = opts.broadcast !== false;
 
-	var that = new events.EventEmitter();
+	let that = new events.EventEmitter();
 
-	var writer;
-	var ready = false;
-	var pending = [];
+	let writer;
+	let ready = false;
+	let pending = [];
 
-	var conns = [];
-	var onerror = function() {
+	let conns = [];
+	let onerror = function() {
 		if (that.listeners('error').length) that.emit('error', err); // good idea???
 	};
 
-	var openWriter = function() {
-		var drain = function(err) {
+	let openWriter = function() {
+		let drain = function(err) {
 			while (pending.length) pending.shift()(err);
 		};
 
@@ -42,15 +42,15 @@ var create = function(opts) {
 		conns.push(writer);
 	};
 
-	var ensureWriter = function(cb) {
+	let ensureWriter = function(cb) {
 		if (!writer) openWriter();
 		if (!ready) return pending.push(cb);
 		cb();
 	};
 
-	var pull = function(topic, worker) {
+	let pull = function(topic, worker) {
 		topic = opts.namespace + topic;
-		var reader = nsq.reader(xtend(opts, {topic:topic}));
+		let reader = nsq.reader(xtend(opts, {topic:topic}));
 
 		reader.on('error', onerror);
 		reader.on('discard', function(msg) {
@@ -67,15 +67,15 @@ var create = function(opts) {
 
 		return function() {
 			reader.close();
-			var i = conns.indexOf(reader);
+			let i = conns.indexOf(reader);
 			if (i > -1) conns.splice(i, 1);
 		};
 	};
 
-	var onbroadcast = function(worker) {
+	let onbroadcast = function(worker) {
 		return pull('broadcast', function(body, cb) {
 			body = body.toString();
-			var i = body.indexOf('@');
+			let i = body.indexOf('@');
 			worker(body.slice(0, i), JSON.parse(body.slice(i+1)), cb);
 		});
 	};
@@ -87,9 +87,9 @@ var create = function(opts) {
 		});
 	};
 
-	var pushRetrier = function(topic, message) {
-		var tries = 0;
-		var timeout = 1000;
+	let pushRetrier = function(topic, message) {
+		let tries = 0;
+		let timeout = 1000;
 		return function cb(err) {
 			if (!err) return;
 			if (++tries >= 5) return onerror(err);

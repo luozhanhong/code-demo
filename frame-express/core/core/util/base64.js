@@ -1,6 +1,6 @@
 // base64加密解密
-var base64encodechars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
-var base64decodechars = new Array(-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+const base64encodechars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+const base64decodechars = new Array(-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
 		-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
 		-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 62, -1, -1, -1,
 		63, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, -1, -1, -1, -1, -1, -1, -1,
@@ -9,8 +9,8 @@ var base64decodechars = new Array(-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
 		32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49,
 		50, 51, -1, -1, -1, -1, -1);
 function base64encode(str) {
-	var out, i, len;
-	var c1, c2, c3;
+	let out, i, len;
+	let c1, c2, c3;
 	len = str.length;
 	i = 0;
 	out = "";
@@ -40,8 +40,8 @@ function base64encode(str) {
 	return out;
 }
 function base64decode(str) {
-	var c1, c2, c3, c4;
-	var i, len, out;
+	let c1, c2, c3, c4;
+	let i, len, out;
 	len = str.length;
 	i = 0;
 	out = "";
@@ -88,7 +88,7 @@ function base64decode(str) {
 	return out;
 }
 function utf16to8(str) {
-	var out, i, len, c;
+	let out, i, len, c;
 	out = "";
 	len = str.length;
 	for (i = 0; i < len; i++) {
@@ -108,8 +108,8 @@ function utf16to8(str) {
 	return out;
 }
 function utf8to16(str) {
-	var out, i, len, c;
-	var char2, char3;
+	let out, i, len, c;
+	let char2, char3;
 	out = "";
 	len = str.length;
 	i = 0;

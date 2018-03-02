@@ -8,16 +8,16 @@
  --------------------------------------------------
  */
 
-var LOGGER = logUtil.getLogger(module.filename);
+const LOGGER = logUtil.getLogger(module.filename);
 
-var https = require('https');
-var fs = require('fs');
-var FormData = require('form-data');
-var fetch = require('node-fetch');
+const https = require('https');
+const fs = require('fs');
+const FormData = require('form-data');
+const fetch = require('node-fetch');
 
-var token = 'YOUR_TOKEN';
-var client_id = 'YXA6MZ-xcBG5EeauZ5dHLLbDKw';
-var client_secret = 'YXA6X0AUYsyWlTy586cBYy1zYJXwXXU';
+const token = 'YOUR_TOKEN';
+const client_id = 'YXA6MZ-xcBG5EeauZ5dHLLbDKw';
+const client_secret = 'YXA6X0AUYsyWlTy586cBYy1zYJXwXXU';
 
 //通用http请求函数
 /*
@@ -27,8 +27,8 @@ var client_secret = 'YXA6X0AUYsyWlTy586cBYy1zYJXwXXU';
  json.headers: 请求头
  json.callback: 回调函数
  */
-var http_request = function (json) {
-	var json = json || {};
+let http_request = function (json) {
+	let json = json || {};
 	json.data = json.data || {};
 	json.method = json.method || 'GET';
 	json.headers = json.headers || {};
@@ -36,18 +36,18 @@ var http_request = function (json) {
 	//json.headers['http']='multipart/form-data';
 	json.headers['Authorization'] = 'Bearer ' + token;
 
-	var postData = JSON.stringify(json.data);//从json对象中解析出字符串
+	let postData = JSON.stringify(json.data);//从json对象中解析出字符串
 	//请求参数
-	var options = {
+	let options = {
 		host: 'a1.easemob.com',
 		path: '/gatherup/gatherup' + json.path,
 		method: json.method,
 		headers: json.headers
 	};
 	//发送请求
-	var req = https.request(options, function (res) {
-		var chunks = '';
-		var size = 0;
+	let req = https.request(options, function (res) {
+		let chunks = '';
+		let size = 0;
 		res.setEncoding('utf8');//设置返回内容的编码
 		//存储返回的响应数据
 		res.on('data', function (chunk) {
@@ -56,7 +56,7 @@ var http_request = function (json) {
 		});
 		res.on('end', function () {
 			//响应完成，获取完整响应数据
-			//var data = JSON.parse(Buffer.concat(chunks, size).toString());
+			//let data = JSON.parse(Buffer.concat(chunks, size).toString());
 			if (typeof json.callback == 'function')
 				json.callback(chunks);
 		});
@@ -77,14 +77,14 @@ var http_request = function (json) {
 
 //获取token
 function getToken(callback) {
-	var data = {grant_type: 'client_credentials', client_id: client_id, client_secret: client_secret};
+	let data = {grant_type: 'client_credentials', client_id: client_id, client_secret: client_secret};
 	http_request({
 		data: data,
 		path: '/token',
 		method: 'POST',
 		callback: function (data) {
-			var d = JSON.parse(data);
-			var token = d.access_token;
+			let d = JSON.parse(data);
+			let token = d.access_token;
 			//LOGGER.info(data);
 			//传进来的函数用来接数据
 			if (typeof callback == 'function')
@@ -101,7 +101,7 @@ function createUser(username, password, callback) {
 	if (properties['system.env'] === 'dev') {
 		username = "test-" + username;
 	}
-	var data = {username: username, password: password};
+	let data = {username: username, password: password};
 	http_request({
 		data: data,
 		path: '/users',
@@ -117,7 +117,7 @@ function createUser(username, password, callback) {
 
 //注册IM用户[批量]
 function createUsers(users, callback) {
-	var data = users;
+	let data = users;
 	http_request({
 		data: data,
 		path: '/users',
@@ -130,7 +130,7 @@ function createUsers(users, callback) {
 }
 //重置用户密码
 function resetPassword(username, oldpwd, newpwd, callback) {
-	var data = {oldpassword: oldpwd, newpassword: newpwd};
+	let data = {oldpassword: oldpwd, newpassword: newpwd};
 	http_request({
 		data: data,
 		path: '/users/' + username + '/password',
@@ -200,7 +200,7 @@ function deleteUsers(limit, callback) {
 
 //修改用户昵称
 function editNickname(username, nickname, callback) {
-	var data = {nickname: nickname};
+	let data = {nickname: nickname};
 	http_request({
 		data: data,
 		path: '/users/' + username,
@@ -261,7 +261,7 @@ function getBlacklist(username, callback) {
 }
 //往黑名单中加人
 function addUserForBlacklist(username, users, callback) {
-	var data = {usernames: users};
+	let data = {usernames: users};
 	http_request({
 		data: data,
 		path: '/users/' + username + '/blocks/users',
@@ -368,8 +368,8 @@ function disconnectUser(username, callback) {
 
  */
 function sendText(json) {
-	var json = json || {};
-	var data = {
+	let json = json || {};
+	let data = {
 		target_type: json.type,
 		target: json.target,
 		msg: {type: 'txt', msg: json.content},
@@ -400,8 +400,8 @@ function sendText(json) {
 
  */
 function sendImage(json) {
-	var json = json || {};
-	var data = {
+	let json = json || {};
+	let data = {
 		target_type: json.type,
 		target: json.target,
 		msg: {type: 'img', url: json.url, filename: json.filename, secret: json.secret, size: {width: 480, height: 720}},
@@ -433,8 +433,8 @@ function sendImage(json) {
 
  */
 function sendAudio(json) {
-	var json = json || {};
-	var data = {
+	let json = json || {};
+	let data = {
 		target_type: json.type,
 		target: json.target,
 		msg: {type: 'audio', url: json.url, filename: json.filename, length: json.length, secret: json.secret},
@@ -469,8 +469,8 @@ function sendAudio(json) {
 
  */
 function sendVedio(json) {
-	var json = json || {};
-	var data = {
+	let json = json || {};
+	let data = {
 		target_type: json.type,
 		target: json.target,
 		msg: {type: 'video', url: json.url, filename: json.filename, thumb: json.thumb, length: json.length, file_length: json.file_length, thumb_secret: json.thumb_secret, secret: json.secret},
@@ -499,8 +499,8 @@ function sendVedio(json) {
 
  */
 function sendCmd(json) {
-	var json = json || {};
-	var data = {
+	let json = json || {};
+	let data = {
 		target_type: json.type,
 		target: json.target,
 		msg: {type: 'cmd', action: json.action},
@@ -522,7 +522,7 @@ function sendCmd(json) {
 
 //获取所有群组
 function getGroups(json) {
-	var json = json || {};
+	let json = json || {};
 	json.limit = json.limit || 0;
 	http_request({
 		path: '/chatgroups?limit=' + json.limit,
@@ -556,8 +556,8 @@ function getGroupDetail(group_ids, callback) {
  json.callback: 回调
  */
 function createGroup(json) {
-	var json = json || {};
-	var data = {
+	let json = json || {};
+	let data = {
 		groupname: json.groupname,
 		desc: json.desc,
 		public: json.public,
@@ -585,8 +585,8 @@ function createGroup(json) {
  json.callback:
  */
 function modifyGroupInfo(json) {
-	var json = json || {};
-	var data = {
+	let json = json || {};
+	let data = {
 		groupname: json.groupname,
 		description: json.description,
 		maxusers: json.maxusers
@@ -637,7 +637,7 @@ function addGroupMember(groupid, username, callback) {
 
 //群组加人[批量]
 function addGroupMembers(groupid, users, callback) {
-	var data = {usernames: users};
+	let data = {usernames: users};
 	http_request({
 		data: data,
 		path: '/chatgroups/' + groupid + '/users',
@@ -689,8 +689,8 @@ function getGroupsForUser(username, callback) {
  json.callback:
  */
 function changeGroupOwner(json) {
-	var json = json || {};
-	var data = {
+	let json = json || {};
+	let data = {
 		newowner: json.newowner,
 	};
 	http_request({
@@ -747,10 +747,10 @@ function deleteGroupBlackMember(groupid, username, callback) {
  */
 function uploadFile(json) {
 
-	var form = new FormData();
-	var num = Math.random();
+	let form = new FormData();
+	let num = Math.random();
 	form.append('file', fs.createReadStream(json.filepath));
-	var options = form.getHeaders();
+	let options = form.getHeaders();
 	options['restrict-access'] = 'true';
 	options['Authorization'] = token;
 	fetch('http://a1.easemob.com/org_name/app_name/chatfiles', {method: 'POST', body: form, headers: options})
@@ -768,7 +768,7 @@ function uploadFile(json) {
 
  */
 function downloadFile(json) {
-	var json = json || {};
+	let json = json || {};
 	http_request({
 		path: '/chatfiles/' + json.uuid,
 		method: 'GET',
@@ -787,7 +787,7 @@ function downloadFile(json) {
 
  */
 function downloadThumbnail(json) {
-	var json = json || {};
+	let json = json || {};
 	http_request({
 		path: '/chatfiles/' + json.uuid,
 		method: 'GET',
@@ -833,7 +833,7 @@ function getChatRecord(json) {
  json.callback:
  */
 function createChatRoom(json) {
-	var data = {
+	let data = {
 		name: json.name,
 		description: json.description,
 		maxusers: json.maxusers,
@@ -862,7 +862,7 @@ function createChatRoom(json) {
  json.callback:
  */
 function modifyChatRoom(json) {
-	var data = {
+	let data = {
 		name: json.name,
 		description: json.description,
 		maxusers: json.maxusers,

@@ -1,6 +1,6 @@
 const nsq = require('./nsqUtil');
 const LOGGER = logUtil.getLogger(module.filename);
-var getChannel = function (channel, isOnlyChannel) {
+let getChannel = function (channel, isOnlyChannel) {
 	if (isOnlyChannel) {
 		return channel;
 	} else {
@@ -15,7 +15,7 @@ function nsqHandler(topic, channel, isOnlyChannel) {
 	}
 	LOGGER.warn("find nsq callback, bind channel: " + getChannel(channel, isOnlyChannel));
 	return function (func) {
-		var queue = nsq({
+		let queue = nsq({
 			nsqd: [properties['nsq.nsqd'] + ':4150'],
 			channel: getChannel(channel, isOnlyChannel)
 		});

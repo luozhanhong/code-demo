@@ -1,7 +1,7 @@
 const LOGGER = logUtil.getLogger(module.filename);
 
 module.exports = function () {
-	var messageHandler = new nsqHandler('topic', 'channel', false);
+	let messageHandler = new nsqHandler('topic', 'channel', false);
 	messageHandler(async function (message) {
 		LOGGER.warn('DemoNSQMessageHandler message: %s', message);
 		/*
@@ -13,6 +13,6 @@ module.exports = function () {
 		return true;
 	});
 };
-var funcs = {
+let funcs = {
 	
 };

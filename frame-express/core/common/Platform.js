@@ -1,4 +1,4 @@
-var Platform = function (platformId) {
+let Platform = function (platformId) {
 	this.platformId = platformId;
 };
 

@@ -1,4 +1,4 @@
-var LOGGER = logUtil.getLogger(module.filename);
+let LOGGER = logUtil.getLogger(module.filename);
 module.exports = {
 	/**
 	 * 从redis取的数据转成对象
@@ -7,12 +7,12 @@ module.exports = {
 	 * @returns t
 	 */
 	decodeT: function (jsonString, T) {
-		var json = JSON.parse(jsonString);
-		var t = new T();
+		let json = JSON.parse(jsonString);
+		let t = new T();
 		if (!t.getClass) {
 			throw new Error("t is not a pojo class " + t);
 		}
-		var i = 0;
+		let i = 0;
 		_.forEach(json, function (v, k) {
 			if (_.isUndefined(t[k])) {
 				// 缓存有,程序没有的字段,忽略
