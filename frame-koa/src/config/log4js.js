@@ -2,12 +2,12 @@
 module.exports = (obj) => {
   return {
     appenders: {
-      logFile: {type: 'dateFile', filename: './log/log.log', pattern: '.yyyy-MM-dd'},
+      logFile: {type: 'dateFile', filename: './logs/log.log', pattern: '.yyyy-MM-dd'},
       console: {type: 'console'}
     },
     categories: {
       [obj]: {appenders: ['console', 'logFile'], level: 'info'},
-      default: {appenders: ['console', 'logFile'], level: 'info'}
+      default: {appenders: ['console', 'logFile'], level: 'debug'}
     }
   };
 };

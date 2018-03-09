@@ -9,6 +9,7 @@
     "lint-fix": "eslint --fix src/"
   },
   "dependencies": {
+    "mongoose": "^5.0.9",
     "think-cache": "^1.1.0",
     "think-cache-file": "^1.1.0",
     "think-logger3": "^1.0.0",
