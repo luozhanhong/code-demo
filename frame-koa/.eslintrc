@@ -1,6 +1,9 @@
 {
   "rules": {
-    "space-before-function-paren": ["error", "always"],
+    "space-before-function-paren": [
+      "off",
+      "always"
+    ]
   },
   "extends": "think"
 }

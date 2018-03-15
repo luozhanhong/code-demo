@@ -1,6 +1,6 @@
-const LOGGER = require('../utils/logUtil')(__filename);
+const looger = getLogger(__filename);
 
 module.exports = (ctx) => {
   ctx.response.body = 'test';
-  LOGGER.info('test');
+  looger.info('test');
 };
