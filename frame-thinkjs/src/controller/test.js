@@ -1,5 +1,9 @@
 const Base = require('./base.js');
 const {sleep} = require('../utils/system');
+
+const Tiangan = require('../model/tiangan');
+const Dizhi = require('../model/dizhi');
+
 module.exports = class extends Base {
   indexAction() {
     return this.json(think.env);
@@ -11,7 +15,13 @@ module.exports = class extends Base {
     data.t1 = Date.now();
     await sleep(1000);
     data.t2 = Date.now();
-    think.logger.warn('111');
+
+    const tiangan = new Tiangan();
+    data.tiangan = await tiangan.find();
+
+    const dizhi = new Dizhi();
+    data.dizhi = await dizhi.find();
+
     return this.json(data);
   }
 

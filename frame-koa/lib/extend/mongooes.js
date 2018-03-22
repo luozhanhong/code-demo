@@ -1,11 +1,19 @@
 const path = require('path');
 const mongoose = require('mongoose');
-const db = require('../config/mongoose');
+const dbMap = require('../plugin/mongoose');
 
 module.exports = class {
-  constructor(tableName) {
+  constructor(tableName, dbName) {
     let category = (new Error()).stack.split('\n')[2];
     category = category.substring(category.indexOf('(') + 1, category.indexOf(':'));
+
+    this.logger = getLogger(category);
+
+    // 没指定数据库名称默认第一个
+    const db = dbName ? dbMap.get(dbName) : dbMap.values()[0];
+    if (!db) {
+      throw new Error(`can not fing db: ${dbName}`);
+    }
 
     this.modelName = path.basename(category, '.js');
     this.tableName = tableName || this.modelName;

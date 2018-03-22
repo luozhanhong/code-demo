@@ -1,5 +1,4 @@
-global.AppDir = __dirname;
-require('./src/bootstrap/globals');
+require('./lib/init');
 const logger = getLogger();
 
 const Koa = require('koa');
