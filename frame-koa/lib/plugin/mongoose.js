@@ -1,7 +1,7 @@
 const mongooseMap = new Map();
 
-if (mongooseMap.size() === 0 && G.config.mongoose) {
-  const logger = getLogger('plugin.mongoose');
+if (mongooseMap.size === 0 && G.config.mongoose) {
+  const logger = getLogger(__filename);
   const mongoose = require('mongoose');
   mongoose.set('debug', G.config.mongoose.debug);
 
@@ -29,8 +29,8 @@ if (mongooseMap.size() === 0 && G.config.mongoose) {
     });
   };
 
-  G.config.mongoose.filter((mongodb) => {
+  Array.isArray(G.config.mongoose) ? G.config.mongoose.filter((mongodb) => {
     mongooseMap.set(mongodb.database, createConnection(mongodb));
-  });
+  }) : mongooseMap.set(G.config.mongoose.database, createConnection(G.config.mongoose));
 }
 module.exports = mongooseMap;

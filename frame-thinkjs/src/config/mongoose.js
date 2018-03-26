@@ -1,5 +1,5 @@
-const url = ``;
-const _url = ``;
+const url = `mongodb://xxx:xxx@127.0.0.1:27017/xxx`;
+const _url = `mongodb://${url.substring(url.indexOf('@') + 1)}`;
 
 const mongoose = require('mongoose');
 const db = mongoose.createConnection(url);
