@@ -23,8 +23,20 @@ global.getModel = (modelName) => {
   }
   const Model = require(modelPath);
   return new Model();
-}
+};
 
+/**
+ * get a controller
+ * @param path
+ */
+global.getController = function (path) {
+  // if path is empty, require base controller
+  const controllerPath = path || path.join(G.ROOT_PATH, 'lib', 'extend', 'controller');
+  return require(controllerPath) || null;
+};
+
+global.G.AppError = require('./extend/apperror');
+// global.G.Mysql2 = require('./extend/mysql2');
 global.G.Mongooes = require('./extend/mongooes');
 global.G.Service = require('./extend/service');
 global.G.Controller = require('./extend/controller');

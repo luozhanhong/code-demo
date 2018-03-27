@@ -6,6 +6,7 @@
   "license": "MIT",
   "scripts": {
     "start": "node development.js",
+    "startProd": "node production.js",
     "lint": "eslint src/"
   },
   "dependencies": {

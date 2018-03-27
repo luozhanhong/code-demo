@@ -1,7 +1,7 @@
 const mongooseMap = new Map();
 
 if (mongooseMap.size === 0 && G.config.mongoose) {
-  const logger = getLogger(__filename);
+  const LOGGER = getLogger(__filename);
   const mongoose = require('mongoose');
   mongoose.set('debug', G.config.mongoose.debug);
 
@@ -12,20 +12,20 @@ if (mongooseMap.size === 0 && G.config.mongoose) {
     const db = mongoose.createConnection(url, mongodb.options);
 
     db.on('error', (err) => {
-      logger.error(err);
+      LOGGER.error(err);
       process.exit(1);
     });
 
     db.on('disconnected', () => {
-      logger.info(`Disconnected ${_url}`);
+      LOGGER.info(`Disconnected ${_url}`);
     });
 
     db.on('connected', () => {
-      logger.info(`Connected ${_url}`);
+      LOGGER.info(`Connected ${_url}`);
     });
 
     db.on('reconnected', () => {
-      logger.info(`Reconnected ${_url}`);
+      LOGGER.info(`Reconnected ${_url}`);
     });
   };
 

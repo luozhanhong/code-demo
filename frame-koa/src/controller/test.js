@@ -1,6 +1,6 @@
-const looger = getLogger(__filename);
-
-module.exports = (ctx) => {
-  ctx.response.body = 'test';
-  looger.info('test');
+module.exports = class extends G.Controller {
+  get() {
+    this.logger.info('this is test');
+    return 'test';
+  }
 };
