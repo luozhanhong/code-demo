@@ -13,15 +13,15 @@ module.exports = () => async (ctx, next) => {
     const controllerPath = path.join(G.APP_PATH, 'controller', ...arr, `${filename}.js`);
     if (!fs.existsSync(controllerPath)) {
       ctx.status = 404;
-      LOGGER.debug(`controller:${controllerPath} not exists!`);
+      LOGGER.warn(`controller:${controllerPath} not exists!`);
       return next();
     }
 
     const controller = new (getController(controllerPath))(ctx);
     if (typeof controller[action] !== 'function') {
       ctx.status = 404;
-      LOGGER.debug(`action ${filename}.${action} not exists`);
-      return;
+      LOGGER.warn(`action ${filename}.${action}() not exists`);
+      return next();
     }
 
     const result = await controller[action]();
