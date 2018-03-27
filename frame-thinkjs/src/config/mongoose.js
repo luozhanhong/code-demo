@@ -1,4 +1,4 @@
-const url = `mongodb://bingo:gogoing@127.0.0.1:27017/bingo`;
+const url = `mongodb://xxx:xxx@127.0.0.1:27017/xxx`;
 const _url = `mongodb://${url.substring(url.indexOf('@') + 1)}`;
 
 const mongoose = require('mongoose');
