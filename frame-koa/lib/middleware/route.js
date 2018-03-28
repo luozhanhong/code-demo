@@ -47,8 +47,7 @@ module.exports = () => async (ctx, next) => {
     }
     return next();
   }
-  // return next();
-}
+};
 // module.exports = () => async (ctx, next) => {
 //   // 在它之后注册的中间件的next后的执行比它先
 //   return next().then(async () => {

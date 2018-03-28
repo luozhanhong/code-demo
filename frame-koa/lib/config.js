@@ -12,12 +12,23 @@ module.exports = {
   ],
   // log4js配置
   log4js: {
+    pm2: true,
+    replaceConsole: true,
     appenders: {
-      logFile: {type: 'dateFile', filename: './logs/log.log', pattern: '.yyyy-MM-dd'},
+      logFile: {
+        type: 'dateFile',
+        filename: './logs/log.log',
+        pattern: '.yyyy-MM-dd',
+        // 始终加上日期结尾,防止rename时丢失
+        alwaysIncludePattern: true
+      },
       console: {type: 'console'}
     },
     categories: {
-      default: {appenders: ['console', 'logFile'], level: (G.ENV === 'production' ? 'info' : 'all')}
+      default: {
+        appenders: (G.ENV === 'production' ? ['logFile'] : ['console', 'logFile']),
+        level: (G.ENV === 'production' ? 'info' : 'all')
+      }
     }
   }
 }

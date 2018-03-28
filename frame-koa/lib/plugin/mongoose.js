@@ -29,8 +29,12 @@ if (mongooseMap.size === 0 && G.config.mongoose) {
     });
   };
 
-  Array.isArray(G.config.mongoose) ? G.config.mongoose.filter((mongodb) => {
-    mongooseMap.set(mongodb.database, createConnection(mongodb));
-  }) : mongooseMap.set(G.config.mongoose.database, createConnection(G.config.mongoose));
+  if (Array.isArray(G.config.mongoose)) {
+    G.config.mongoose.filter((mongodb) => {
+      mongooseMap.set(mongodb.database, createConnection(mongodb));
+    });
+  } else {
+    mongooseMap.set(G.config.mongoose.database, createConnection(G.config.mongoose));
+  }
 }
 module.exports = mongooseMap;
