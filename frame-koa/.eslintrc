@@ -1,5 +1,12 @@
 {
+  "globals": {
+    "G": true,
+    "getLogger": true,
+    "getModel": true,
+    "getController": true
+  },
   "rules": {
+    "no-console": "off",
     "space-before-function-paren": [
       "off",
       "always"

@@ -14,4 +14,4 @@ module.exports = class {
       process.exit(1);
     });
   }
-}
+};

@@ -4,4 +4,4 @@ module.exports = class extends Error {
     this.code = code;
     this.msg = msg;
   }
-}
+};

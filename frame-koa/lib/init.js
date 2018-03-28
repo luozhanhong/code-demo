@@ -17,11 +17,11 @@ module.exports = class {
     global.G.ENV = options.ENV;
     global.G.ROOT_PATH = options.ROOT_PATH;
     global.G.APP_PATH = path.join(options.ROOT_PATH, 'src');
-    global.G.config = Object.assign({}, require('./config'), require(path.join(G.APP_PATH, 'config', `config.${options.ENV}`)));
+    global.G.config = Object.assign({}, require('./config'), require(path.join(G.APP_PATH, 'config', `config`)), require(path.join(G.APP_PATH, 'config', `config.${options.ENV}`)));
     require('./globals');
 
     this.LOGGER = getLogger(__filename);
-    this.LOGGER.info('global.G: ', G);
+    this.LOGGER.debug('global.G: ', G);
 
     this[bootstrap]();
   }
@@ -45,7 +45,7 @@ module.exports = class {
     });
 
     app.listen(G.config.port, () => {
-      this.LOGGER.info('server start on http://127.0.0.1:3000');
+      this.LOGGER.info(`server start on http://127.0.0.1:${G.config.port}`);
     });
   }
 

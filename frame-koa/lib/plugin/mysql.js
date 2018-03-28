@@ -12,7 +12,7 @@ if (G.config.mysql) {
     connectionLimit: G.config.mysql.connectionLimit || 5,
     supportBigNumbers: true,
     bigNumberStrings: false,
-    multipleStatement: false,
+    multipleStatement: false
   });
 
   pool.getConnection((err, connection) => {

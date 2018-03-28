@@ -16,12 +16,6 @@ module.exports = class extends Base {
     await sleep(1000);
     data.t2 = Date.now();
 
-    const tiangan = new Tiangan();
-    data.tiangan = await tiangan.find();
-
-    const dizhi = new Dizhi();
-    data.dizhi = await dizhi.find();
-
     return this.json(data);
   }
 

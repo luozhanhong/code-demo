@@ -1,24 +1,30 @@
 {
   "name": "frame-koa",
   "description": "application created by koa",
-  "version": "1.0.0",
+  "version": "0.0.10",
   "author": "saa",
   "license": "MIT",
   "scripts": {
     "start": "node development.js",
-    "startProd": "node production.js",
-    "lint": "eslint src/"
+    "lint": "eslint lib/"
   },
   "dependencies": {
+    "babel-eslint": "^8.2.2",
+    "eslint": "^4.18.2",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-config-think": "^1.0.2",
+    "jsonwebtoken": "^8.2.0",
     "koa": "^2.5.0",
     "koa-body": "^2.5.0",
     "koa-convert": "^1.2.0",
     "koa-cors": "0.0.16",
     "koa-helmet": "^3.3.0",
     "log4js": "^2.5.3",
-    "mongoose": "^5.0.11"
+    "mongoose": "^5.0.12"
   },
   "devDependencies": {
-    "eslint": "^4.18.1"
+    "eslint-plugin-import": "^2.9.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.7.0"
   }
 }
