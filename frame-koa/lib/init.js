@@ -1,5 +1,6 @@
 const assert = require('assert');
 const path = require('path');
+const http = require('http');
 const fs = require('fs');
 const Koa = require('koa');
 const koaBody = require('koa-body');
@@ -43,10 +44,19 @@ module.exports = class {
     middlewareList.forEach(m => {
       app.use(require(path.join(G.ROOT_PATH, 'lib', 'middleware', m))());
     });
-
-    app.listen(G.config.port, () => {
-      this.LOGGER.info(`server start on http://127.0.0.1:${G.config.port}`);
+	
+	// global exception catch
+	process.on('uncaughtException', (err) => {
+      LOGGER.error(err);
     });
+	
+	// start
+    const server = http.createServer(app.callback());
+    server.listen(G.config.port);
+	this.LOGGER.info(`server start on http://127.0.0.1:${G.config.port}`);
+    // app.listen(G.config.port, () => {
+    //   this.LOGGER.info(`server start on http://127.0.0.1:${G.config.port}`);
+    // });
   }
 
   [bootstrap]() {
