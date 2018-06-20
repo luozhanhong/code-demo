@@ -18,7 +18,6 @@ var convert = function (s, numRows) {
   var addOrSub = 1;
   // 行/列
   var row = -1, col = 0;
-  index.push([row, col]);
   for (let i = 0; i < s.length; i++) {
     addOrSub == 1 && row++;
 
@@ -37,5 +36,7 @@ var convert = function (s, numRows) {
   }
   return [].concat(...indexStr).join('');
 };
+console.log(convert("PAYPALISHIRING", 1));
+console.log(convert("PAYPALISHIRING", 2));
 console.log(convert("PAYPALISHIRING", 3));
 console.log(convert("PAYPALISHIRING", 4));
