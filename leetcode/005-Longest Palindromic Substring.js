@@ -1,4 +1,5 @@
 /**
+ * 最长对称子串
  * @param {string} s
  * @return {string}
  */
