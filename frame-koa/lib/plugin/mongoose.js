@@ -13,7 +13,6 @@ if (mongooseMap.size === 0 && G.config.mongoose) {
 
     db.on('error', (err) => {
       LOGGER.error(err);
-      process.exit(1);
     });
 
     db.on('disconnected', () => {

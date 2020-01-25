@@ -22,7 +22,6 @@ if (G.config.mysql) {
     LOGGER.info(`connect mysql://${host}:${port}/${database} successfully`);
   }).catch(err => {
     LOGGER.error(err);
-    process.exit(1);
   });
 }
 module.exports = pool;

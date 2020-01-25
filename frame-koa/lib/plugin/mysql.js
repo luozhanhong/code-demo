@@ -18,7 +18,6 @@ if (G.config.mysql) {
   pool.getConnection((err, connection) => {
     if (err) {
       LOGGER.error(err);
-      process.exit(1);
     }
     const {config: {host}} = connection;
     const {config: {port}} = connection;

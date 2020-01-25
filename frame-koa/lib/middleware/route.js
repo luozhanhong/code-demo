@@ -8,15 +8,27 @@ module.exports = () => async (ctx, next) => {
 
     const ctxPath = ctx.path.replace(new RegExp(/(\/){2,}/g), '/');
     const arr = ctxPath.split('/').filter(v => !!v);
+	// 没路由
+	if (arr.length == 0) {
+		ctx.status = 200;
+		ctx.body = {code: 0, data: {}, time: nowTime};
+		return next();
+	}
     const action = arr.splice(-1, 1)[0];
     const filename = arr.splice(-1, 1)[0];
+	// 只有一层路由，当成restful处理
+	if (!filename) {
+		filename = action;
+		action = ctx.request.method;
+	}
+	
+	// not restful
     const controllerPath = path.join(G.APP_PATH, 'controller', ...arr, `${filename}.js`);
     if (!fs.existsSync(controllerPath)) {
       ctx.status = 404;
       G.requestLog && LOGGER.warn(`controller:${controllerPath} not exists!`);
       return next();
     }
-
     const controller = new (getController(controllerPath))(ctx);
     if (typeof controller[action] !== 'function') {
       ctx.status = 404;

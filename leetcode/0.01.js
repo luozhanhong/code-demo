@@ -35,6 +35,7 @@ async function promiseTest() {
     }).then(d => {
       return 'this is then success';
     }).catch(err => {
+      console.log('catch 1: ', err);
       return err;
     });
   };
