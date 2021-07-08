@@ -37,6 +37,6 @@ global.getController = function (path) {
 
 global.G.AppError = require('./extend/apperror');
 // global.G.Mysql2 = require('./extend/mysql2');
-global.G.Mongooes = require('./extend/mongooes');
+//global.G.Mongooes = require('./extend/mongooes');
 global.G.Service = require('./extend/service');
 global.G.Controller = require('./extend/controller');

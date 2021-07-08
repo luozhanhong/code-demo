@@ -8,31 +8,31 @@ module.exports = () => async (ctx, next) => {
 
     const ctxPath = ctx.path.replace(new RegExp(/(\/){2,}/g), '/');
     const arr = ctxPath.split('/').filter(v => !!v);
-	// 没路由
-	if (arr.length == 0) {
-		ctx.status = 200;
-		ctx.body = {code: 0, data: {}, time: nowTime};
-		return next();
-	}
-    const action = arr.splice(-1, 1)[0];
-    const filename = arr.splice(-1, 1)[0];
-	// 只有一层路由，当成restful处理
-	if (!filename) {
-		filename = action;
-		action = ctx.request.method;
-	}
-	
-	// not restful
+    // 没路由
+    if (arr.length == 0) {
+      ctx.status = 200;
+      ctx.body = { code: 0, data: {}, time: nowTime };
+      return next();
+    }
+    let action = arr.splice(-1, 1)[0];
+    let filename = arr.splice(-1, 1)[0];
+    // 只有一层路由，当成restful处理
+    if (!filename) {
+      filename = action;
+      action = ctx.request.method;
+    }
+    // not restful
     const controllerPath = path.join(G.APP_PATH, 'controller', ...arr, `${filename}.js`);
+    const controllerName = controllerPath.replace(G.ROOT_PATH, '').replace('.js', '').trim().split(path.sep).filter(v => !!v).join('.');
     if (!fs.existsSync(controllerPath)) {
       ctx.status = 404;
-      G.requestLog && LOGGER.warn(`controller:${controllerPath} not exists!`);
+      G.config.requestLog && LOGGER.warn(`controller ${controllerName} not exists!`);
       return next();
     }
     const controller = new (getController(controllerPath))(ctx);
     if (typeof controller[action] !== 'function') {
       ctx.status = 404;
-      G.requestLog && LOGGER.warn(`action ${filename}.${action}() not exists`);
+      G.config.requestLog && LOGGER.warn(`action ${controllerName}.${action}() not exists`);
       return next();
     }
 
@@ -43,18 +43,18 @@ module.exports = () => async (ctx, next) => {
       return next();
     }
     if (result === undefined || result === null) {
-      ctx.body = {code: 0, data: {}, time: nowTime};
+      ctx.body = { code: 0, data: {}, time: nowTime };
       return next();
     }
-    ctx.body = {code: 0, data: result, time: nowTime};
+    ctx.body = { code: 0, data: result, time: nowTime };
     return next();
   } catch (err) {
     if (err instanceof G.AppError) {
       LOGGER.warn(err);
-      ctx.body = {code: err.code || 1, msg: err.msg, time: nowTime};
+      ctx.body = { code: err.code || 1, msg: err.msg, time: nowTime };
       ctx.status = 200;
     } else {
-      LOGGER.warn(err);
+      LOGGER.error(...err);
       ctx.status = 500;
     }
     return next();

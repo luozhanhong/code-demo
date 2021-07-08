@@ -17,12 +17,12 @@ module.exports = {
     appenders: {
       logFile: {
         type: 'dateFile',
-        filename: './logs/log.log',
+        filename: G.ROOT_PATH + '/logs/log.log',
         pattern: '.yyyy-MM-dd',
         // 始终加上日期结尾,防止rename时丢失
         alwaysIncludePattern: true
       },
-      console: {type: 'console'}
+      console: { type: 'console' }
     },
     categories: {
       default: {

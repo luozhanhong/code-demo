@@ -29,7 +29,7 @@ module.exports = class {
 
   run() {
     const app = new Koa();
-    app.use(koaBody({multipart: true}));
+    app.use(koaBody({ multipart: true }));
     app.use(helmet());
     G.config.cors && app.use(convert(cors()));
 
@@ -47,22 +47,22 @@ module.exports = class {
 
     // global exception catch
     process.on('uncaughtException', (err) => {
-      LOGGER.error(err);
+      this.LOGGER.error(err);
     });
-	/** kill -15,完成请求,优雅退出,关于进程结束相关信号可自行搜索查看 */
-	process.on('SIGTERM', close.bind(this, 'SIGTERM'));
-	process.on('SIGINT', close.bind(this, 'SIGINT'));
+    /** kill -15,完成请求,优雅退出,关于进程结束相关信号可自行搜索查看 */
+    process.on('SIGTERM', close.bind(this, 'SIGTERM'));
+    process.on('SIGINT', close.bind(this, 'SIGINT'));
 
-	function close(signal) {
-		console.log(`收到 ${signal} 信号开始处理`);
+    function close(signal) {
+      console.log(`收到 ${signal} 信号开始处理`);
 
-		server.close(() => {
-			console.log(`服务停止 ${signal} 处理完毕`);
-			process.exit(0);
-		});
-	}
-	/** Docker下要用node启动 https://cloud.tencent.com/developer/article/1519301*/
-	
+      server.close(() => {
+        console.log(`服务停止 ${signal} 处理完毕`);
+        process.exit(0);
+      });
+    }
+    /** Docker下要用node启动 https://cloud.tencent.com/developer/article/1519301*/
+
     // start
     const server = http.createServer(app.callback());
     server.listen(G.config.port);
