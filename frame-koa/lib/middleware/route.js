@@ -54,7 +54,7 @@ module.exports = () => async (ctx, next) => {
       ctx.body = { code: err.code || 1, msg: err.msg, time: nowTime };
       ctx.status = 200;
     } else {
-      LOGGER.error(...err);
+      LOGGER.error(err);
       ctx.status = 500;
     }
     return next();
