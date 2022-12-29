@@ -23,7 +23,7 @@
     "thinkjs": "^3.2.7"
   },
   "devDependencies": {
-    "ava": "^0.18.0",
+    "ava": "^5.1.0",
     "eslint": "^4.18.1",
     "eslint-config-think": "^1.0.0",
     "nyc": "^7.0.0",
